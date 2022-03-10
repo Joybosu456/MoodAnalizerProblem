@@ -25,4 +25,23 @@ namespace MoodAnalyzerTest
             Assert.AreEqual(expected, mood);
         }
     }
+
+    [TestMethod]
+    public void GivenAnyMoodReturnHAPPY()
+    {
+        /// <summary>
+        /// TC 1.2: Given “I am in Any Mood” message Should Return HAPPY
+        /// </summary>
+        /// 
+        // Arrange
+        string expected = "HAPPY";
+        string message = "I am in Any Mood";
+        MoodAnalyse moodAnalyse = new MoodAnalyse();
+
+        // Act
+        string mood = moodAnalyse.AnalyseMood(message);
+
+        // Assert
+        Assert.AreEqual(expected, mood);
+    }
 }
