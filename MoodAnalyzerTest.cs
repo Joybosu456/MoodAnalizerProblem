@@ -1,47 +1,64 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using MoodAnalyzerProblem;
+using MoodAnalayzer;
 
 namespace MoodAnalyzerTest
 {
     [TestClass]
-    public class MoodAnlyzerTest
-    {/// <summary>
-    /// 
-    /// UC1-Joy(TC-1.1)
-    /// </summary>
+    public class AnalyzerTest
+    {
+        /// <summary>
+        /// TC 1.1: Given “I am in Sad Mood” message Should Return SAD.
+        /// </summary>
         [TestMethod]
         public void GivenSadMoodShouldReturnSAD()
         {
             // Arrange
             string expected = "SAD";
             string message = "I am in Sad Mood";
-            MoodAnalyse moodAnalyse = new MoodAnalyse();
+            MoodAnalyse moodAnalyse = new MoodAnalyse(message);
 
             // Act
-            string mood = moodAnalyse.AnalyseMood(message);
+            string mood = moodAnalyse.AnalyseMood();
 
             // Assert
             Assert.AreEqual(expected, mood);
         }
-    }
 
-    [TestMethod]
-    public void GivenAnyMoodReturnHAPPY()
-    {
         /// <summary>
-        /// TC 1.2: Given “I am in Any Mood” message Should Return HAPPY
+        /// TC 1.2  & 2.1: Given “I am in HAPPY Mood” and null message Should Return HAPPY
         /// </summary>
-        /// 
-        // Arrange
-        string expected = "HAPPY";
-        string message = "I am in Any Mood";
-        MoodAnalyse moodAnalyse = new MoodAnalyse();
+        [TestMethod]
+        [DataRow("I am in HAPPY Mood")]
+        [DataRow(null)]
+        public void GivenHAPPYMoodShouldReturnHappy(string message)
+        {
+            // Arrange
+            string expected = "HAPPY";
+            MoodAnalyse moodAnalyse = new MoodAnalyse(message);
 
-        // Act
-        string mood = moodAnalyse.AnalyseMood(message);
+            // Act
+            string mood = moodAnalyse.AnalyseMood();
 
-        // Assert
-        Assert.AreEqual(expected, mood);
+            // Assert
+            Assert.AreEqual(expected, mood);
+        }
+
+        /// <summary>
+        /// TC 3.1: Given NULL Mood Should Throw MoodAnalysisException.
+        /// </summary>
+        [TestMethod]
+        public void Given_NULL_Mood_Should_Throw_MoodAnalysisException()
+        {
+            try
+            {
+                string message = null;
+                MoodAnalyse moodAnalyse = new MoodAnalyse(message);
+                string mood = moodAnalyse.AnalyseMood();
+            }
+            catch (MoodAnalysisException e)
+            {
+                Assert.AreEqual("Mood should not be null", e.Message);
+            }
+        }
     }
 }
