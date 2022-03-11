@@ -6,24 +6,40 @@ using System.Threading.Tasks;
 
 namespace MoodAnalayzer
 {
-    /// <summary>
-    /// MoodAnalysisException Class For Handling Exception.
-    /// </summary>
-    public class MoodAnalysisException : Exception
+    public class MoodAnalyse
     {
-       
-        public enum ExceptionType
+        private string message;
+
+        /// <summary>
+        /// Parameterised Constructor.
+        /// </summary>
+        /// <param name="message"></param>
+        public MoodAnalyse(string message)
         {
-            NULL_MESSAGE, Empty_Message
+            this.message = message;
         }
 
-       
-        private readonly ExceptionType type;
-
-        
-        public MoodAnalysisException(ExceptionType Type, string message) : base(message)
+        public string AnalyseMood()
         {
-            this.type = Type;
+            try
+            {
+                if (this.message.Equals(string.Empty))
+                {
+                    throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.Empty_Message, "Mood should not be Empty");
+                }
+                if (this.message.Contains("Sad"))
+                {
+                    return "SAD";
+                }
+                else
+                {
+                    return "HAPPY";
+                }
+            }
+            catch (NullReferenceException)
+            {
+                throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NULL_MESSAGE, "Mood should not be null");
+            }
         }
     }
 }
