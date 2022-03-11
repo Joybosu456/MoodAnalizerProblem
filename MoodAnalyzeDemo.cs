@@ -1,32 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace MoodAnalyzerProblem
+namespace MoodAnalayzer
 {
-    public class MoodAnalyse
+    /// <summary>
+    /// MoodAnalysisException Class For Handling Exception.
+    /// </summary>
+    public class MoodAnalysisException : Exception
     {
-        private string message;
-
-        /// <summary>
-        /// Parameterised Constructor.
-        /// </summary>
-        /// <param name="message"></param>
-        public MoodAnalyse(string message)
+       
+        public enum ExceptionType
         {
-            this.message = message;
+            NULL_MESSAGE, Empty_Message
         }
 
-        public string AnalyseMood()
+       
+        private readonly ExceptionType type;
+
+        
+        public MoodAnalysisException(ExceptionType Type, string message) : base(message)
         {
-            if (this.message.Contains("Sad"))
-            {
-                return "SAD";
-            }
-            else
-            {
-                return "HAPPY";
-            }
+            this.type = Type;
         }
     }
 }
